@@ -29,5 +29,19 @@ namespace ExchangeRates.Services
         {
             return _rateRepository.ReadByCountry(country);
         }
+
+        public Rate UpdateRate(string country, Rate updateRate)
+        {
+            var validatedRate =_rateRepository.ReadByCountry(country);
+            if (validatedRate != null)
+            {
+                return _rateRepository.UpdateRate(updateRate);
+            } else
+            {
+                Console.WriteLine("Could not find given rate.");
+                return updateRate;
+            }
+
+        }
     }
 }

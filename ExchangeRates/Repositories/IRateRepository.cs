@@ -10,5 +10,6 @@ namespace ExchangeRates.Repositories
         List<Rate> Read();
         Rate ReadByCountry(string country);
         Rate CreateRate(Rate newRate);
+        Rate UpdateRate(Rate updateRate);
     }
 }

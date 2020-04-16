@@ -33,5 +33,12 @@ namespace ExchangeRates.Repositories
             return _exchangeRatesDbContext.Rate.AsNoTracking()
                 .FirstOrDefault(r => r.Country == country);
         }
+
+        public Rate UpdateRate(Rate updateRate)
+        {
+            _exchangeRatesDbContext.Update(updateRate);
+            _exchangeRatesDbContext.SaveChanges();
+            return updateRate;
+        }
     }
 }

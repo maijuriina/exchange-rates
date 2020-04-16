@@ -26,7 +26,7 @@ namespace ExchangeRates.Controllers
             return new JsonResult(_rateService.Read());
         }
 
-        // GET: api/Rates/5
+        // GET: api/Rates/USD
         [HttpGet("{country}", Name = "Get")]
         public IActionResult Get(string country)
         {
@@ -40,16 +40,17 @@ namespace ExchangeRates.Controllers
             return new JsonResult(_rateService.CreateRate(newRate));
         }
 
-        // PUT: api/Rates/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT: api/Rates/USD
+        [HttpPut("{country}")]
+        public IActionResult Put(string country, Rate updateRate)
         {
+            return new JsonResult(_rateService.UpdateRate(country, updateRate));
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }
