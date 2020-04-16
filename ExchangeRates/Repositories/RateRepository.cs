@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,9 +16,22 @@ namespace ExchangeRates.Repositories
             _exchangeRatesDbContext = exchangeRatesDbContext ?? throw new ArgumentNullException(nameof(exchangeRatesDbContext));
         }
 
+        public Rate CreateRate(Rate newRate)
+        {
+            _exchangeRatesDbContext.Rate.Add(newRate);
+            _exchangeRatesDbContext.SaveChanges();
+            return newRate;
+        }
+
         public List<Rate> Read()
         {
             return _exchangeRatesDbContext.Rate.ToList();
+        }
+
+        public Rate ReadByCountry(string country)
+        {
+            return _exchangeRatesDbContext.Rate.AsNoTracking()
+                .FirstOrDefault(r => r.Country == country);
         }
     }
 }

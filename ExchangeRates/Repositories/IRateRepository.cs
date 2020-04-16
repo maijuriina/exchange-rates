@@ -8,5 +8,7 @@ namespace ExchangeRates.Repositories
     public interface IRateRepository
     {
         List<Rate> Read();
+        Rate ReadByCountry(string country);
+        Rate CreateRate(Rate newRate);
     }
 }

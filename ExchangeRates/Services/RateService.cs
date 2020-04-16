@@ -15,9 +15,19 @@ namespace ExchangeRates.Services
             _rateRepository = rateRepository ?? throw new ArgumentNullException(nameof(rateRepository));
         }
 
+        public Rate CreateRate(Rate newRate)
+        {
+            return _rateRepository.CreateRate(newRate);
+        }
+
         public List<Rate> Read()
         {
             return _rateRepository.Read();
+        }
+
+        public Rate ReadByCountry(string country)
+        {
+            return _rateRepository.ReadByCountry(country);
         }
     }
 }

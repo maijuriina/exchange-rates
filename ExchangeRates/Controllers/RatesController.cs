@@ -27,16 +27,17 @@ namespace ExchangeRates.Controllers
         }
 
         // GET: api/Rates/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("{country}", Name = "Get")]
+        public IActionResult Get(string country)
         {
-            return "value";
+            return new JsonResult(_rateService.ReadByCountry(country));
         }
 
         // POST: api/Rates
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post(Rate newRate)
         {
+            return new JsonResult(_rateService.CreateRate(newRate));
         }
 
         // PUT: api/Rates/5
