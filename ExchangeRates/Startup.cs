@@ -28,12 +28,13 @@ namespace ExchangeRates
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // add repositories and services to the program's use
             services.AddScoped<IRateRepository, RateRepository>();
             services.AddScoped<IRateService, RateService>();
 
             services.AddDbContext<ExchangeRatesDbContext>(opt =>
             {
-                opt.UseSqlServer(Configuration.GetConnectionString("AzureConnection"));
+                opt.UseSqlServer(Configuration.GetConnectionString("AzureConnection")); // connection string defined in appsettings.json with data for accessing database
             });
 
             services.AddControllers();

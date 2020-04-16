@@ -12,13 +12,16 @@ namespace ExchangeRates.Controllers
     [ApiController]
     public class RatesController : ControllerBase
     {
+        // inject service layer
         private readonly IRateService _rateService;
 
+        // constructor for service with null-check
         public RatesController(IRateService rateService)
         {
             _rateService = rateService ?? throw new ArgumentNullException(nameof(rateService));
         }
 
+        // returns all data in table
         // GET: api/Rates
         [HttpGet]
         public IActionResult Get()
@@ -26,6 +29,7 @@ namespace ExchangeRates.Controllers
             return new JsonResult(_rateService.Read());
         }
 
+        // returns data according to country search
         // GET: api/Rates/USD
         [HttpGet("{country}", Name = "Get")]
         public IActionResult Get(string country)
@@ -40,6 +44,7 @@ namespace ExchangeRates.Controllers
 
         }
 
+        // returns either invalid search terms OR the conversion rate based on user input
         // GET: api/Rates/amount/fromCountryRate/toCountryRate
        [HttpGet("{amount}/{fromCountryRate}/{toCountryRate}")]
         public IActionResult Get(string amount, string fromCountryRate, string toCountryRate)
@@ -54,6 +59,7 @@ namespace ExchangeRates.Controllers
             
         }
 
+        // creates a new Rate-type currency
         // POST: api/Rates
         [HttpPost]
         public IActionResult Post(Rate newRate)
@@ -61,6 +67,7 @@ namespace ExchangeRates.Controllers
             return new JsonResult(_rateService.CreateRate(newRate));
         }
 
+        // updates a currency's information based on what is put in updateRate : NOTE! Requires id in json
         // PUT: api/Rates/USD
         [HttpPut("{country}")]
         public IActionResult Put(string country, Rate updateRate)
