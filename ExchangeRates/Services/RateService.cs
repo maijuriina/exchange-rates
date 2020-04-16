@@ -20,6 +20,33 @@ namespace ExchangeRates.Services
             return _rateRepository.CreateRate(newRate);
         }
 
+        public decimal GetConversionRate(string amount, string fromCountryRate, string toCountryRate)
+        {
+            decimal decimalNumber;
+            if (decimal.TryParse(amount, out decimalNumber))
+            {
+                if (decimalNumber > 0)
+                {          
+                    Rate validatedFcr = _rateRepository.ReadByCountry(fromCountryRate);
+                    if (validatedFcr != null)
+                    {
+                        Rate validatedTcr = _rateRepository.ReadByCountry(toCountryRate);
+                        if (validatedTcr != null)
+                        {
+                            decimal conversionRateFcr = decimal.Parse(validatedFcr.Rate1.ToString());
+                            decimal conversionRateTcr = decimal.Parse(validatedTcr.Rate1.ToString());
+                            decimal exchangeRate = conversionRateFcr / conversionRateTcr;
+                            decimal conversionValue = 1 / exchangeRate;
+                            decimal result = decimalNumber * conversionValue;
+                        return result;
+                        }
+                    }
+                }
+            }
+            Console.WriteLine("Query unsuccesful.");
+            return 0;
+        }
+
         public List<Rate> Read()
         {
             return _rateRepository.Read();

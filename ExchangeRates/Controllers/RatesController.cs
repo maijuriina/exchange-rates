@@ -33,6 +33,13 @@ namespace ExchangeRates.Controllers
             return new JsonResult(_rateService.ReadByCountry(country));
         }
 
+        // GET: api/Rates/amount/fromCountryRate/toCountryRate
+       [HttpGet("{amount}/{fromCountryRate}/{toCountryRate}")]
+        public IActionResult Get(string amount, string fromCountryRate, string toCountryRate)
+        {
+            return new JsonResult(_rateService.GetConversionRate(amount, fromCountryRate, toCountryRate));
+        }
+
         // POST: api/Rates
         [HttpPost]
         public IActionResult Post(Rate newRate)
