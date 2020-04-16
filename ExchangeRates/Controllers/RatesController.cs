@@ -30,14 +30,28 @@ namespace ExchangeRates.Controllers
         [HttpGet("{country}", Name = "Get")]
         public IActionResult Get(string country)
         {
-            return new JsonResult(_rateService.ReadByCountry(country));
+            if (_rateService.ReadByCountry(country) != null)
+            {
+                return new JsonResult(_rateService.ReadByCountry(country));
+            } else
+            {
+                return new JsonResult("Your search terms found no matches from the database.");
+            }
+
         }
 
         // GET: api/Rates/amount/fromCountryRate/toCountryRate
        [HttpGet("{amount}/{fromCountryRate}/{toCountryRate}")]
         public IActionResult Get(string amount, string fromCountryRate, string toCountryRate)
         {
-            return new JsonResult(_rateService.GetConversionRate(amount, fromCountryRate, toCountryRate));
+            if (_rateService.GetConversionRate(amount, fromCountryRate, toCountryRate) == 0)
+            {
+                return new JsonResult("Invalid search terms. Query unsuccessful.");
+            } else
+            {
+                return new JsonResult(_rateService.GetConversionRate(amount, fromCountryRate, toCountryRate));
+            }
+            
         }
 
         // POST: api/Rates
@@ -53,11 +67,5 @@ namespace ExchangeRates.Controllers
         {
             return new JsonResult(_rateService.UpdateRate(country, updateRate));
         }
-
-        // DELETE: api/ApiWithActions/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

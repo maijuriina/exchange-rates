@@ -43,7 +43,6 @@ namespace ExchangeRates.Services
                     }
                 }
             }
-            Console.WriteLine("Query unsuccesful.");
             return 0;
         }
 
