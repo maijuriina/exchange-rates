@@ -42,7 +42,7 @@ namespace ExchangeRates.Services
                             decimal exchangeRate = conversionRateFcr / conversionRateTcr; // divides conversion rates with each other and saved to parameter
                             decimal conversionValue = 1 / exchangeRate; // conversionValue saved from dividing one by the exchange rate
                             decimal result = decimalNumber * conversionValue; // result is amount of currency multiplied by its conversionValue 
-                        return result; // amount of currency for desired amount in other currency
+                        return decimal.Round(result, 2, MidpointRounding.AwayFromZero); // amount of rounded currency for desired amount in other currency
                         }
                     }
                 }
